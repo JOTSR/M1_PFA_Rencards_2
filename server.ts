@@ -1,5 +1,5 @@
 import 'https://deno.land/std@0.128.0/dotenv/load.ts'
-import { Application, Router, send, FormDataReader } from 'https://deno.land/x/oak@v10.1.0/mod.ts'
+import { Application, Router, send, FormDataReader } from 'https://deno.land/x/oak@v10.4.0/mod.ts'
 import { createBot, startBot, sendMessage } from 'https://deno.land/x/discordeno@13.0.0-rc17/mod.ts'
 
 const DISCORD_TOKEN = String(Deno.env.get('DISCORD_TOKEN') ?? '')
