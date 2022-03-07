@@ -1,6 +1,6 @@
-import 'https://deno.land/x/dotenv@v3.1.0/load.ts'
-import { Application, Router, send, FormDataReader } from 'https://deno.land/x/oak@v10.1.0/mod.ts'
-import { createBot, startBot, sendMessage } from 'https://deno.land/x/discordeno@13.0.0-rc17/mod.ts'
+import 'https://deno.land/std@0.128.0/dotenv/load.ts'
+import { Application, Router, send, FormDataReader } from 'https://deno.land/x/oak@v10.4.0/mod.ts'
+import { createBot, startBot, sendMessage } from 'https://deno.land/x/discordeno@13.0.0-rc22/mod.ts'
 
 const DISCORD_TOKEN = String(Deno.env.get('DISCORD_TOKEN') ?? '')
 const DISCORD_ID = BigInt(Deno.env.get('DISCORD_ID') ?? '')
@@ -27,7 +27,7 @@ const bot = createBot({
 	},
 })
 
-await startBot(bot)
+// await startBot(bot)
 
 //Router
 const router = new Router()
@@ -78,12 +78,32 @@ app.use(async (ctx, next) => {
 })
 
 //Resolve static files
-app.use(async (ctx) => {
-	await send(ctx, ctx.request.url.pathname, {
-        root: `${Deno.cwd()}/public`,
-        index: 'index.html'
-    })
+//Deno Deploy fix
+app.use(async (ctx, next) => {
+	const root = `${Deno.cwd()}/public`
+	const filePath = (() => {
+		const { pathname } = ctx.request.url
+		if (pathname === '/') return root + '/index.html'
+		return root + ctx.request.url.pathname
+	})()
+
+	try {
+		ctx.response.body = await Deno.readFile(filePath)
+		ctx.response.status = 200
+	} catch {
+		ctx.response.body = 'Fichier introuvable'
+		ctx.response.status = 404
+	}
+	// await send(ctx, ctx.request.url.pathname, {
+    //     root: `${Deno.cwd()}/public`,
+    //     index: 'index.html'
+    // })
+
+	await next()
 })
 
-console.log(`Server listen on http://localhost:${Deno.env.get('PORT')}`)
+app.addEventListener(
+	'listen',
+	() => console.log(`Server listen on http://localhost:${Deno.env.get('PORT') ?? 80}`)
+)
 await app.listen({ port: 80 })
