@@ -1,6 +1,6 @@
 import 'https://deno.land/std@0.128.0/dotenv/load.ts'
 import { Application, Router, send, FormDataReader } from 'https://deno.land/x/oak@v10.4.0/mod.ts'
-import { createBot, startBot, sendMessage } from 'https://deno.land/x/discordeno@13.0.0-rc17/mod.ts'
+import { createBot, startBot, sendMessage } from 'https://deno.land/x/discordeno@13.0.0-rc22/mod.ts'
 
 const DISCORD_TOKEN = String(Deno.env.get('DISCORD_TOKEN') ?? '')
 const DISCORD_ID = BigInt(Deno.env.get('DISCORD_ID') ?? '')
@@ -27,7 +27,7 @@ const bot = createBot({
 	},
 })
 
-await startBot(bot)
+// await startBot(bot)
 
 //Router
 const router = new Router()
@@ -87,6 +87,6 @@ app.use(async (ctx) => {
 
 app.addEventListener(
 	'listen',
-	() => console.log(`Server listen on http://localhost:${Deno.env.get('PORT')}`)
+	() => console.log(`Server listen on http://localhost:${Deno.env.get('PORT') ?? 80}`)
 )
 await app.listen({ port: 80 })
