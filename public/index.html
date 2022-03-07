@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js" defer></script>
+    <link rel="shortcut icon" href="img/icon.png" type="image/png">
+    <title>Rencards 2</title>
+</head>
+<body>
+    <header>
+        <h1>Les Rencards de la Physique</h1>
+        <h2>Vendredi 25 Mars 2022 de 12h30 à 13h50 <br> Bâtiment A9 - Salle 01</h2>
+    </header>
+    <div class="subtitle tilted">
+        <h2>La physique d'antan</h2>
+    </div>
+    <article>
+        <div class="controls">
+            <button id="controls-carte">Carte</button>
+            <button id="controls-agenda">Agenda</button>
+            <button id="controls-contact">Contact</button>
+            <button id="controls-programme">Programme</button>
+        </div>
+    </article>
+    <div class="boisson tilted">
+        <p>CAFÉ, CRÊPES ET BOISSONS OFFERT</p>
+    </div>
+    <footer>
+        <div>
+            <p>Master 1 Physique Fondamentale et applications</p>
+        </div>
+        <img src="img/univ_bdx.png" alt="Logo UF de Physique université de Bordeaux">
+    </footer>
+    <div id="modal-carte" class="modal modal-hidden modal-animation">
+        <h2>Carte</h2>
+        <a href="https://www.google.fr/maps/place/A9,+33400+Talence/@44.8077331,-0.5945536,20z" target="blank">Salle 01 RdC bâtiment A9</a>
+        <div class="maps" id="gmaps"></div>
+    </div>
+    <div id="modal-agenda" class="modal modal-hidden modal-animation">
+        <h2>Agenda</h2>
+        <p>Vendredi 25 Mars 2022 de 12h30 à 13h50</p>
+        <button id="addToCalendar">Ajouter à mon agenda</button>
+    </div>
+    <div id="modal-contact" class="modal modal-hidden modal-animation">
+        <h2>Contact</h2>
+        <form action="" id="contact_form">
+            <label for="prenom">Prénom</label>
+            <input type="text" name="prenom" id="prenom" required>
+            <label for="nom">Nom</label>
+            <input type="text" name="nom" id="nom" required>
+            <label for="mail">Adresse email</label>
+            <input type="email" name="mail" id="mail" required>
+            <label for="message">Message</label>
+            <textarea name="message" id="message" cols="30" rows="10" required></textarea>
+            <button type="submit">Envoyer</button>
+        </form>
+    </div> 
+    <div id="modal-programme" class="modal modal-hidden modal-animation">
+        <h2>Programme</h2>
+        Nothing yet
+    </div> 
+    <div class="alert alert-error"></div>
+    <div class="alert alert-warning"></div>
+    <div class="alert alert-info"></div>
+</body>
+</html>

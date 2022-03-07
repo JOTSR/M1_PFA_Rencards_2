@@ -1,0 +1,185 @@
+@import url("fonts/fonts.css");
+
+:root {
+    --light-accent-color: #009DE0;
+    --dark--accent-color: #3A1B0B;
+    --main-font-family: "Brix Slab";
+    --light-background: var(--light-accent-color) url("img/header_background.png") right top / 15em 30em repeat;
+    --dark-background: var(--dark--accent-color) url("img/subtitle_background.png") right top / 1em 1em repeat;
+    --tilt: -4deg;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: var(--main-font-family);
+    color: white;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: 13em 1fr 6em;
+}
+
+header {
+    margin: 0;
+    padding: 0.5em 0.5em 1em 0.5em;
+    font-weight: bolder;
+    background: var(--light-background);
+}
+.subtitle {
+    transform: rotateZ(var(--tilt)) translateX(-0.1em);
+    top: 11em;
+    background: var(--dark-background);
+    padding: 1.1em;
+    text-align: center;
+    width: 102vw;
+    position: absolute;
+    z-index: 10;
+}
+
+.subtitle h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.boisson {
+    transform: rotateZ(var(--tilt));
+    background: white;
+    color: var(--dark--accent-color);
+    padding: 0em 2em;
+    font-weight: bold;
+    text-align: right;
+    position: absolute;
+    bottom: 5em;
+    width: 101vw;
+}
+
+article {
+    background: no-repeat url("/img/main_bg.png");
+    background-size: cover;
+    padding: 3em 0.2em 0.2em 0.2em;
+    width: 100vw;
+}
+
+footer {
+    padding: 1em 0.5em 0.5em 0.5em;
+    color: var(--dark--accent-color);
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    font-size: medium;
+    font-size: smaller;
+}
+
+footer img {
+    width: 20em;
+    justify-self: right;
+    padding-right: 1em;
+    align-self: center;
+}
+
+img {
+    width: auto;
+}
+
+button {
+    background: var(--light-background);
+    font-family: var(--main-font-family);
+    font-weight: bolder;
+    color: white;
+    padding: 0.5em;
+    border: none;
+    font-size: 1em;
+    box-shadow: 0.2em 0.2em hsl(198, 100%, 20%);
+    transition: all 0.1s ease;
+    user-select: none;
+    margin: 0.2em;
+}
+
+button:active {
+    transform: translate(0.1em, 0.1em);
+    box-shadow: 0.1em 0.1em hsl(198, 100%, 20%);
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.modal {
+    background-color: white;
+    color: var(--dark--accent-color);
+    position: fixed;
+    top: 19em;
+    left: 0;
+    margin: 0em 0.5em;
+    padding: 1em;
+    width: calc(100vw - 1em);
+    height: calc(100vh - 19em);
+    box-shadow: 0.2em 0.2em rgba(0, 0, 0, 0.5);
+    border: solid 0.1em var(--dark--accent-color);
+    transition: all 0.2s ease;
+}
+
+.modal h2 {
+    background: var(--light-background);
+    color: white;
+    width: calc(100vw - 0.75em);
+    padding: 0.5em;
+    margin: -0.7em -0.7em 1em;
+    box-shadow: 0em 0.1em hsl(198, 100%, 20%);
+}
+
+.modal button {
+    width: calc(100% - 0.5em);
+}
+
+.modal input,
+.modal textarea {
+    width: calc(100% - 0.5em);
+    margin: 0.1em 0.5em;
+    padding: 0.3em;
+}
+
+.modal textarea {
+    height: 7em;
+}
+
+#modal-contact h2 {
+    margin-bottom: 0.5em;
+}
+
+.modal label {
+    margin: 0.5em;
+    font-size: 0.9em;
+}
+
+.modal-animation {
+    transform: translateY(100%);
+}
+
+.modal-hidden {
+    display: none;
+}
+
+.loading_container  {
+    animation: rotate 2s linear infinite;
+    z-index: 2;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -25px 0 0 -25px;
+    width: 50px;
+    height: 50px;
+}
+
+.maps {
+    width: 100%;
+    height: calc(100% - 6em);
+    margin-top: 1em;
+}

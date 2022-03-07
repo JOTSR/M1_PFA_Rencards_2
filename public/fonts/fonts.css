@@ -1,0 +1,31 @@
+@font-face {
+    font-family: Brix Slab;
+    src: local("Brix Slab Regular"),
+         local("BrixSlab-Regular"),
+         url(BrixSlab-Regular.otf);
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: Brix Slab;
+    src: local("Brix Slab Bold"),
+         local("BrixSlab-Bold"),
+         url(BrixSlab-Bold.otf);
+    font-weight: bolder;
+}
+
+@font-face {
+    font-family: Brix Slab;
+    src: local("Brix Slab Light"),
+         local("BrixSlab-Light"),
+         url(BrixSlab-Light.otf);
+    font-weight: lighter;
+}
+
+@font-face {
+    font-family: Brix Slab;
+    src: local("Brix Slab Medium"),
+         local("BrixSlab-Medium"),
+         url(BrixSlab-Medium.otf);
+    font-weight: bold;
+}
