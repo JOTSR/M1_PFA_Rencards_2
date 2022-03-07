@@ -78,11 +78,24 @@ app.use(async (ctx, next) => {
 })
 
 //Resolve static files
-app.use(async (ctx) => {
-	await send(ctx, ctx.request.url.pathname, {
-        root: `${Deno.cwd()}/public`,
-        index: 'index.html'
-    })
+//Deno Deploy fix
+app.use(async (ctx, next) => {
+	const root = `${Deno.cwd()}/public`
+	const filePath = root + (ctx.request.url.pathname ?? 'index.html')
+
+	try {
+		ctx.response.body = await Deno.readFile(filePath)
+		ctx.response.status = 200
+	} catch {
+		ctx.response.body = 'Fichier introuvable'
+		ctx.response.status = 404
+	}
+	// await send(ctx, ctx.request.url.pathname, {
+    //     root: `${Deno.cwd()}/public`,
+    //     index: 'index.html'
+    // })
+
+	await next()
 })
 
 app.addEventListener(
