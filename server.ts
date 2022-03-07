@@ -4,11 +4,11 @@ import { createBot, startBot, sendMessage } from 'https://deno.land/x/discordeno
 
 const DISCORD_TOKEN = String(Deno.env.get('DISCORD_TOKEN') ?? '')
 const DISCORD_ID = BigInt(Deno.env.get('DISCORD_ID') ?? '')
-// const DISCORD_CHANNEL = BigInt(Deno.env.get('DISCORD_CHANNEL') ?? '')
+const DISCORD_CHANNEL = BigInt(Deno.env.get('DISCORD_CHANNEL') ?? '')
 
 const app = new Application()
 
-let channelId = 0n
+let channelId = 0n ?? DISCORD_CHANNEL
 
 const bot = createBot({
 	token: DISCORD_TOKEN,
@@ -27,7 +27,7 @@ const bot = createBot({
 	},
 })
 
-// await startBot(bot)
+await startBot(bot)
 
 //Router
 const router = new Router()
