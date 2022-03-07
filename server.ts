@@ -81,7 +81,7 @@ app.use(async (ctx, next) => {
 //Deno Deploy fix
 app.use(async (ctx, next) => {
 	const root = `${Deno.cwd()}/public`
-	const filePath = root + (ctx.request.url.pathname ?? 'index.html')
+	const filePath = `${root}/${(ctx.request.url.pathname.slice(1) ?? 'index.html')}`
 
 	try {
 		ctx.response.body = await Deno.readFile(filePath)
