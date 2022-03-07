@@ -85,5 +85,8 @@ app.use(async (ctx) => {
     })
 })
 
-console.log(`Server listen on http://localhost:${Deno.env.get('PORT')}`)
+app.addEventListener(
+	'listen',
+	() => console.log(`Server listen on http://localhost:${Deno.env.get('PORT')}`)
+)
 await app.listen({ port: 80 })
