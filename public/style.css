@@ -66,6 +66,12 @@ article {
     width: 100vw;
 }
 
+@media screen and (min-width: 800px) {
+    article {
+        background: no-repeat url("/img/main_bg_horiz.png");
+    }
+}
+
 footer {
     padding: 1em 0.5em 0.5em 0.5em;
     color: var(--dark--accent-color);
