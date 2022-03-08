@@ -4,8 +4,9 @@ scripts:
     cmd: deno run --allow-read="." --allow-net --allow-env server.ts
   dev: 
     desc: Reload on change
-    cmd: vr run start
-    reload: server.ts
+    cmd: deno run --allow-read="." --allow-net --allow-env --watch server.ts
+    # cmd: vr run start
+    # reload: server.ts
   docker-build:
     desc: Build app docker image as scolaire/rencards2
     cmd: docker build -t scolaire/rencards2:1.0 .
