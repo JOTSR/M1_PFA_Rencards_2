@@ -1,4 +1,4 @@
-import {createBot, startBot, sendMessage} from './deps.ts'
+import { createBot, startBot, sendMessage } from './deps.ts'
 
 const DISCORD_TOKEN = String(Deno.env.get('DISCORD_TOKEN') ?? '')
 const DISCORD_ID = BigInt(Deno.env.get('DISCORD_ID') ?? '')
