@@ -25,6 +25,12 @@ body {
     grid-template-rows: 13em 1fr 6em;
 }
 
+@media screen and (max-width: 500px) and (orientation: portrait) {
+    body {
+        grid-template-rows: 13em 1fr 7em;
+    }
+}
+
 header {
     margin: 0;
     padding: 0.5em 0.5em 1em 0.5em;
@@ -78,7 +84,6 @@ footer {
     background-color: white;
     display: grid;
     grid-template-columns: 1fr 2fr;
-    font-size: medium;
     font-size: smaller;
 }
 
@@ -87,6 +92,20 @@ footer img {
     justify-self: right;
     padding-right: 1em;
     align-self: center;
+}
+
+@media screen and (max-width: 500px) and (orientation: portrait) {
+    footer {
+        padding: 2.5em 0.5em 0.5em 0.5em;
+        grid-template-columns: 1fr 1fr;
+    }
+    footer img {
+        width: 15em;
+        padding-right: 0;
+    }
+    .boisson {
+        bottom: 2em;
+    }
 }
 
 img {
@@ -132,6 +151,12 @@ button:active {
     transition: all 0.2s ease;
 }
 
+@media screen and (max-width: 500px) and (orientation: portrait) {
+    .modal {
+        height: calc(100vh - 18em);
+    }    
+}
+
 .modal h2 {
     background: var(--light-background);
     color: white;
@@ -148,12 +173,25 @@ button:active {
 .modal input,
 .modal textarea {
     width: calc(100% - 0.5em);
-    margin: 0.1em 0.5em;
-    padding: 0.3em;
+    margin: 0.5em;
+    padding: 0.5em;
 }
 
 .modal textarea {
-    height: 7em;
+    height: 100%;
+}
+
+@media screen and (max-width: 500px) and (orientation: portrait) {
+    .modal input,
+    .modal textarea {
+        width: calc(100% - 0.5em);
+        margin: 0.3em 0.5em;
+        padding: 0.4em;
+    }
+
+    .modal textarea {
+        height: 7em;
+    }
 }
 
 #modal-contact h2 {
