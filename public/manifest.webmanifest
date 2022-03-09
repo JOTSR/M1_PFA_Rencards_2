@@ -4,8 +4,8 @@
     "start_url": "/",
     "scope": ".",
     "display": "standalone",
-    "background_color": "#009DE0",
-    "theme_color": "#009DE0",
+    "background_color": "#11a9ec",
+    "theme_color": "#11a9ec",
     "lang": "fr",
     "description": "Les Rencards de la Physique 2020, vendredi 25 mars de 12h30 à 13h50",
     "icons": [{
