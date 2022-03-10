@@ -46,11 +46,12 @@ class DB {
             const client = await this.#pool.connect()
             try {
                 await client.queryObject/*sql*/`
-                INSERT OR UPDATE INTO connection_logs (
+                INSERT INTO connection_logs (
                     ip, last_at
                 ) VALUES (
                     ${ip}, ${last_at}
-                )`
+                ) ON CONFLICT (id)
+                DO UPDATE SET last_at = EXCLUDED.last_at`
             } finally {
                 client.release()
             }
