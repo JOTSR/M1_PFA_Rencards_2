@@ -11,7 +11,7 @@ export type ContactForm = {
 
 export type ConnectionLogs = {
     ip: string
-    first_at: string
+    first_at?: string
     last_at: string
 }
 
