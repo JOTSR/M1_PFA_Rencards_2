@@ -42,14 +42,14 @@ class DB {
     }
 
     connectionLogs = {
-        insert: async ({ip, first_at, last_at}: ConnectionLogs) => {
+        update: async ({ip, last_at}: ConnectionLogs) => {
             const client = await this.#pool.connect()
             try {
                 await client.queryObject/*sql*/`
-                INSERT INTO contact_form (
-                    ip, first_at, last_at
+                INSERT OR UPDATE INTO connection_logs (
+                    ip, last_at
                 ) VALUES (
-                    ${ip}, ${first_at}, ${last_at}
+                    ${ip}, ${last_at}
                 )`
             } finally {
                 client.release()
