@@ -163,4 +163,11 @@ addEventListener('resize', () => {
 		'--tilt',
 		`-${4 * Math.exp(-(((window.innerWidth - 450) / 450) ** 2))}deg`
 	)
+	detectVirtualKeyboardCrop()
 })
+
+function detectVirtualKeyboardCrop() {	
+	for (const modal of document.querySelectorAll('.modal:focus-within, .modal-focus-full')) {
+		modal.classList.toggle('modal-focus-full')
+	}
+}
