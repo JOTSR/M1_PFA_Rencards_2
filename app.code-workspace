@@ -1,0 +1,15 @@
+{
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "name": "Server",
+            "path": "server"
+        },
+        {
+            "name": "Client",
+            "path": "public"
+        }
+    ]
+}
