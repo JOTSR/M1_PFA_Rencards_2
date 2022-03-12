@@ -1,10 +1,10 @@
 scripts:
   start: 
     desc: Run the server
-    cmd: deno run --allow-read="." --allow-net --allow-env server.ts
+    cmd: deno run --allow-read="." --allow-net --allow-env server/server.ts
   dev: 
     desc: Reload on change
-    cmd: deno run --allow-read="." --allow-net --allow-env --watch server.ts
+    cmd: deno run --allow-read="." --allow-net --allow-env --watch server/server.ts
     # cmd: vr run start
     # reload: server.ts
   docker-build:
