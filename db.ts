@@ -50,7 +50,7 @@ class DB {
                     ip, last_at
                 ) VALUES (
                     ${ip}, ${last_at}
-                ) ON CONFLICT (id)
+                ) ON CONFLICT (ip)
                 DO UPDATE SET last_at = EXCLUDED.last_at`
             } finally {
                 client.release()
