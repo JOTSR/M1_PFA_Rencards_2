@@ -17,6 +17,7 @@ self.addEventListener('install', (e) => {
                 '/img/main_bg_horiz.png',
                 '/img/subtitle_background.png',
                 '/img/univ_bdx.png',
+                '/img/notif_badge.png'
             ])
         })
     )
