@@ -42,3 +42,25 @@ router.post('/contact', async (ctx) => {
 	ctx.response.status = 400
 	ctx.response.body = 'Expected FormData'
 })
+
+router.post('/vapid', (ctx) => {
+	const pub = Deno.env.get('VAPID_PUBLIC')
+	const sub = Deno.env.get('VAPID_sub')
+
+	ctx.response.type = 'application/json'
+	ctx.response.body = { pub, sub }
+
+	if (pub && sub) {
+		ctx.response.status = 200
+		return
+	}
+
+	ctx.response.status = 404
+})
+
+router.post('/pushRegister', async (cxt) => {
+	const { subscription } = await cxt.request.body({type: 'json'}).value
+	const ip = cxt.request.ip
+	db.webPush.update({ ip, subscription: subscription })
+	cxt.response.status = 201
+})
