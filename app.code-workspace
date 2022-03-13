@@ -11,5 +11,13 @@
             "name": "Client",
             "path": "public"
         }
-    ]
+    ],
+    "settings": {
+        "deno.enable": true,
+        "deno.lint": true,
+        "deno.unstable": true,
+        "files.exclude": {
+            "client": true
+        }
+    }
 }
