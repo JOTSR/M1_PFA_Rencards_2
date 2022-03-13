@@ -31,8 +31,12 @@ self.addEventListener('fetch', (e) => {
             return fetch(e.request).then(response => {
                 const responseClone = response.clone()
 
-                caches.open('v0').then(cache => {
-                    cache.put(e.request, responseClone)
+                caches.open('v1').then(cache => {
+                    try {
+                        cache.put(e.request, responseClone)
+                    } catch (e) {
+                        console.error(e)
+                    }
                 })
 
                 return response
@@ -40,3 +44,19 @@ self.addEventListener('fetch', (e) => {
         }
     }))
 })
+
+addEventListener('notificationclick', async (e) => {
+    if (e.action === 'go-to') {
+        clients.openWindow('https://www.google.fr/maps/place/A9,+33400+Talence/@44.8078069,-0.5963735,17z')
+    }
+    
+    if (e.action === 'save-calendar') {
+        clients.openWindow('/')
+        for (const client of [... await clients.matchAll()]) {
+            client.postMessage('#notif.calendar')
+        }
+    }
+    
+    e.notification.close()
+
+}, false)
