@@ -1,22 +1,63 @@
 if ('serviceWorker' in navigator) {
-	navigator.serviceWorker
-		.register('/sw.js', { scope: '/' })
-		.then(function (reg) {
-			if (reg.installing) {
-				console.log('Service worker installing')
-			} else if (reg.waiting) {
-				console.log('Service worker installed')
-			} else if (reg.active) {
-				console.log('Service worker active')
-			}
+	try {
+		const registration = await navigator.serviceWorker.register('/sw.js', { scope: '/' })
+
+		const subscription = await getOrSubscribe(registration)
+		
+		await fetch('/pushRegister', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: JSON.stringify({
+				subscription
+			})
 		})
-		.catch(function (error) {
-			// registration failed
-			console.log('Registration failed with ' + error)
-		})
+
+		console.log('Subscribed to web push notification')
+
+		if (registration.installing) {
+			console.log('Service worker installing')
+		} else if (registration.waiting) {
+			console.log('Service worker installed')
+		} else if (registration.active) {
+			console.log('Service worker active')
+		}
+
+	} catch (error) {
+		// registration failed
+		console.error('Registration failed with ' + error)
+	}
+}
+
+/**
+ * 
+ * @param {ServiceWorkerRegistration} registration 
+ * @returns 
+ */
+async function getOrSubscribe(registration) {
+	const subscription = await registration.pushManager.getSubscription()
+	
+	if (subscription) {
+		return subscription
+	}
+
+	const { pub } = await (await fetch('./vapid', {
+		method: 'POST',
+		accept: 'application/json'
+	})).json() 
+	const vapidKey = urlBase64ToUint8Array(pub)
+
+	return registration.pushManager.subscribe({
+		userVisibleOnly: true,
+		applicationServerKey: vapidKey,
+
+	})
+
 }
 
 const $ = (tag) => document.querySelector(tag)
+// const $$ = (tag) => document.querySelectorAll(tag)
 
 const menu = {
 	carte: $('#controls-carte'),
@@ -163,4 +204,33 @@ addEventListener('resize', () => {
 		'--tilt',
 		`-${4 * Math.exp(-(((window.innerWidth - 450) / 450) ** 2))}deg`
 	)
+	detectVirtualKeyboardCrop()
+})
+
+function detectVirtualKeyboardCrop() {	
+	for (const modal of document.querySelectorAll('.modal:focus-within, .modal-focus-full')) {
+		modal.classList.toggle('modal-focus-full')
+	}
+}
+
+function urlBase64ToUint8Array(base64String) {
+    const padding = '='.repeat((4 - base64String.length % 4) % 4);
+    const base64 = (base64String + padding)
+        .replace(/\-/g, '+')
+        .replace(/_/g, '/');
+
+    const rawData = atob(base64);
+    const outputArray = new Uint8Array(rawData.length);
+
+    for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+    }
+    return outputArray;
+}
+
+navigator.serviceWorker.addEventListener('message', (e) => {
+	if(e.data === '#notif.calendar') {
+		downloadFile('./event.ics')
+		return
+	}
 })

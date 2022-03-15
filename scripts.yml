@@ -1,21 +1,13 @@
 scripts:
   start: 
     desc: Run the server
-    cmd: deno run --allow-read="." --allow-net --allow-env server.ts
+    cmd: deno run --allow-read="." --allow-net --allow-env server/server.ts
   dev: 
     desc: Reload on change
-    cmd: deno run --allow-read="." --allow-net --allow-env --watch server.ts
-    # cmd: vr run start
-    # reload: server.ts
-  docker-build:
-    desc: Build app docker image as scolaire/rencards2
-    cmd: docker build -t scolaire/rencards2:1.0 .
-  docker-run:
-    desc: Run dockerized app
-    cmd: docker run -it --rm -p ${PORT}:80 -v ${PWD}:/app scolaire/rencards2 sh
-  docker-tag:
-    desc: Tag docker image to gcloud
-    cmd: docker tag scolaire/rencards2:1.0 europe-west1-docker.pkg.dev/rencards2m1pfa2022/main/server:1.0
-  docker-push:
-    desc: Push img to gcloud
-    cmd: docker push europe-west1-docker.pkg.dev/rencards2m1pfa2022/main/server:1.0
+    cmd: deno run --allow-read="." --allow-net --allow-env --watch server/server.ts
+  build:
+    desc: Build client
+    cmd: echo NOT IMPLEMENTED
+  notify:
+    desc: Send web push notification
+    cmd: deno run -A WebPush/web-push.ts

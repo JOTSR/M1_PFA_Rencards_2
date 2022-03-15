@@ -1,0 +1,27 @@
+{
+    "folders": [
+        {
+            "path": "."
+        },
+        {
+            "name": "Server",
+            "path": "server"
+        },
+        {
+            "name": "Client",
+            "path": "public"
+        },
+        {
+            "name": "WebPush",
+            "path": "WebPush"
+        }
+    ],
+    "settings": {
+        "deno.enable": true,
+        "deno.lint": true,
+        "deno.unstable": true,
+        "files.exclude": {
+            "client": true
+        }
+    }
+}
