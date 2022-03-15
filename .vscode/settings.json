@@ -7,6 +7,7 @@
         "**/.DS_Store": true,
         "**/Thumbs.db": true,
         "server": true,
-        "public": true
+        "public": true,
+        "WebPush": true
     }
 }

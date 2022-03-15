@@ -10,6 +10,10 @@
         {
             "name": "Client",
             "path": "public"
+        },
+        {
+            "name": "WebPush",
+            "path": "WebPush"
         }
     ],
     "settings": {
