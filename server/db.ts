@@ -124,10 +124,15 @@ class DB {
             let response
             try {
                 response = await client.queryObject/*sql*/`
-                SELECT ${fields.join(', ')} FROM web_push`
+                SELECT subscription FROM web_push`
+                // SELECT ${fields.join(', ')} FROM web_push`
             } finally {
                 client.release()
             }
+
+            console.log(response)
+            return response.rows as WebPushSubscription[]
+
             if (fields[0] === '*') {
                 return response.rows as WebPush[]
             }
