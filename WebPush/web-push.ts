@@ -9,7 +9,7 @@ export async function pushNotification(title: string, options: Record<string, un
             'cmd',
             '/c',
             `ts-node WebPush/index.ts ${
-                JSON.stringify(subscriptions.slice(0, 1)).replaceAll(' ', '%20')
+                JSON.stringify(subscriptions).replaceAll(' ', '%20')
             } ${
                 payload.replaceAll(' ', '%20')
             }`
