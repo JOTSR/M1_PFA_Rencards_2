@@ -232,29 +232,6 @@ function urlBase64ToUint8Array(base64String) {
     return outputArray;
 }
 
-async function _showNotification(title, {body, tag, actions}) {
-	if (!('Notification' in window)) {
-		return
-	}
-
-	if (!['denied', 'granted'].includes(Notification.permission)) {
-		try {
-			await Notification.requestPermission()
-		} catch (e) {
-			return e
-		}
-	}
-
-	const _notification = swRegistration.showNotification(title, {
-		lang: 'fr',
-		badge: '/img/notif_badge.png',
-		icon: '/img/icon_flat.png',
-		body,
-		actions,
-		tag
-	})
-}
-
 navigator.serviceWorker.addEventListener('message', (e) => {
 	if(e.data === '#notif.calendar') {
 		downloadFile('./event.ics')

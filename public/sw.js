@@ -60,3 +60,36 @@ addEventListener('notificationclick', async (e) => {
     e.notification.close()
 
 }, false)
+
+addEventListener('push', async (e) => {
+    if (Notification?.permission !== 'granted') {
+        return
+    }
+
+    const {title, ...options} = e.data.json()
+
+    await showNotification(title, options)
+})
+
+async function showNotification(title, {icon, body, tag, actions}) {
+	if (!('Notification' in window)) {
+		return
+	}
+
+	if (!['denied', 'granted'].includes(Notification.permission)) {
+		try {
+			await Notification.requestPermission()
+		} catch (e) {
+			return e
+		}
+	}
+
+	new Notification(title, {
+		lang: 'fr',
+		badge: '/img/notif_badge.png',
+		icon,
+		body,
+		actions,
+		tag
+	})
+}
