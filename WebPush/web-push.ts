@@ -1,7 +1,8 @@
-import { Jwt } from '../server/deps.ts'
+// import { Jwt } from '../server/deps.ts'
 import { db } from '../server/db.ts'
+// import https from 'https://deno.land/std@0.129.0/node/https.ts'
 
-import * as webPush from 'https://esm.sh/web-push?target=deno'
+// import * as webPush from 'https://esm.sh/web-push?target=deno'
 
 const vapid = {
     sub: Deno.env.get('VAPID_SUB')!,
@@ -9,11 +10,13 @@ const vapid = {
     public: Deno.env.get('VAPID_PUBLIC')!
 }
 
-webPush.setVapidDetails(
-    vapid.sub,
-    vapid.public,
-    vapid.private
-)
+// webPush.setVapidDetails(
+//     vapid.sub,
+//     vapid.public,
+//     vapid.private
+// )
+
+await Deno.writeTextFile('./WebPush/subs.json', JSON.stringify(await db.webPush.select<'subscription'>('*')))
 
 // const salt = 'hcwD844KF'
 
@@ -47,12 +50,11 @@ export async function pushNotification(title: string, options: Record<string, un
 	// 	new TextEncoder().encode(JSON.stringify({ title, ...options }))
 	// )
 	
-    
-	for(const { subscription } of await db.webPush.select<'subscription'>('*')) {
+	// for(const { subscription } of await db.webPush.select<'subscription'>('*')) {
         // const clientPubKey = btoa(subscription.keys.p256dh)
         // const clientAuthSecret = btoa(subscription.keys.auth)
 
-        webPush.sendNotification(subscription, JSON.stringify({ title, ...options }))
+        // webPush.sendNotification(subscription, JSON.stringify({ title, ...options }))
         
         // const authHeader = await Jwt.create(
         //     {
@@ -81,7 +83,7 @@ export async function pushNotification(title: string, options: Record<string, un
 		// 		body: new Uint8Array(encrypted)
 		// 	})
 		// }
-	} 
+	// } 
 }
 
 // await pushNotification(
