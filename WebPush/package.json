@@ -1,5 +1,6 @@
 {
 	"dependencies": {
+		"dotenv": "^16.0.0",
 		"web-push": "^3.4.5"
 	},
 	"devDependencies": {

@@ -8,3 +8,6 @@ scripts:
   build:
     desc: Build client
     cmd: echo NOT IMPLEMENTED
+  notify:
+    desc: Send web push notification
+    cmd: deno run -A WebPush/web-push.ts

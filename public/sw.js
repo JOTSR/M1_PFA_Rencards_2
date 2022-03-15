@@ -31,7 +31,7 @@ self.addEventListener('fetch', (e) => {
             return fetch(e.request).then(response => {
                 const responseClone = response.clone()
 
-                caches.open('v1').then(cache => {
+                caches.open('v2').then(cache => {
                     try {
                         cache.put(e.request, responseClone)
                     } catch (e) {
@@ -72,10 +72,6 @@ addEventListener('push', async (e) => {
 })
 
 async function showNotification(title, {icon, body, tag, actions}) {
-	if (!('Notification' in window)) {
-		return
-	}
-
 	if (!['denied', 'granted'].includes(Notification.permission)) {
 		try {
 			await Notification.requestPermission()
@@ -84,7 +80,7 @@ async function showNotification(title, {icon, body, tag, actions}) {
 		}
 	}
 
-	new Notification(title, {
+	registration.showNotification(title, {
 		lang: 'fr',
 		badge: '/img/notif_badge.png',
 		icon,

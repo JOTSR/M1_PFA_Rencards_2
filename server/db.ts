@@ -130,7 +130,6 @@ class DB {
                 client.release()
             }
 
-            console.log(response)
             return response.rows as WebPushSubscription[]
 
             if (fields[0] === '*') {

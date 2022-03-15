@@ -1,38 +1,34 @@
-const swRegistration = await (async () => {
-	if ('serviceWorker' in navigator) {
-		try {
-			const registration = await navigator.serviceWorker.register('/sw.js', { scope: '/' })
-	
-			const subscription = await getOrSubscribe(registration)
-			
-			await fetch('/pushRegister', {
-				method: 'POST',
-				headers: {
-					'Content-type': 'application/json'
-				},
-				body: JSON.stringify({
-					subscription
-				})
+if ('serviceWorker' in navigator) {
+	try {
+		const registration = await navigator.serviceWorker.register('/sw.js', { scope: '/' })
+
+		const subscription = await getOrSubscribe(registration)
+		
+		await fetch('/pushRegister', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: JSON.stringify({
+				subscription
 			})
+		})
 
-			console.log('Subscribed to web push notification')
+		console.log('Subscribed to web push notification')
 
-			if (registration.installing) {
-				console.log('Service worker installing')
-			} else if (registration.waiting) {
-				console.log('Service worker installed')
-			} else if (registration.active) {
-				console.log('Service worker active')
-			}
-
-			return registration
-
-		} catch (error) {
-			// registration failed
-			console.error('Registration failed with ' + error)
+		if (registration.installing) {
+			console.log('Service worker installing')
+		} else if (registration.waiting) {
+			console.log('Service worker installed')
+		} else if (registration.active) {
+			console.log('Service worker active')
 		}
+
+	} catch (error) {
+		// registration failed
+		console.error('Registration failed with ' + error)
 	}
-})()
+}
 
 /**
  * 

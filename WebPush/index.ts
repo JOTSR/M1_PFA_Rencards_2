@@ -1,51 +1,28 @@
 const webPush = require('web-push')
 const fs = require('fs')
+require('dotenv').config({path: '../.env'})
 
 webPush.setVapidDetails(
-    VAPID_SUB,
-    VAPID_PUBLIC,
-    VAPID_PRIVATE
+    process.env.VAPID_SUB,
+    process.env.VAPID_PUBLIC,
+    process.env.VAPID_PRIVATE
 )
 
-function pushNotification(title: string, options: Record<string, unknown>) {
-    
-    const payload = JSON.stringify({title, ...options})
-
-    fs.readFile("./subs.json", "utf8", (err: unknown, jsonString: string) => {
-        if (err) {
-          console.log("File read failed:", err);
-          return;
-        }
-        // console.log("File data:", jsonString)
-
-        const rows = JSON.parse(jsonString)
-
-        //@ts-ignore ok
-        for (const row of rows) {
-            // console.log(row)
+function pushNotification(subscriptions: unknown[], payload: Record<string, unknown>) {    
+    //@ts-ignore ok
+    for (const { subscription } of subscriptions) {
+        try {
             //@ts-ignore ok
-            webPush.sendNotification(row.subscription, payload)
+            webPush.sendNotification(subscription, JSON.stringify(payload))
             console.log('sended')
+        } catch (e) {
+            console.error(`Push error: ${e}`)
         }
-
-    })
+    }
 }
 
-pushNotification(
-	'Rφ le 25 à 12h30',
-	{
-		body: 'RDV au Rencards de la Physique le 25 à 12h30 au A9',
-		tag: 'rappel',
-		icon: '/img/icon_flat.png',
-		actions: [
-			{
-				action: 'go-to',
-				title: `S'y rendre`
-			},
-			{
-				action: 'save-calendar',
-				title: 'Ajouter à mon agenda'
-			}
-		]
-	}
-)
+const [subscriptions, payload] = process.argv
+    .slice(2)
+    .map(arg => JSON.parse(arg.replaceAll('%20', ' ')))
+
+pushNotification(subscriptions, payload)
